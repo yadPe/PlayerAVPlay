@@ -59,8 +59,9 @@
                     player.toggleFullscreen();
                     break;
                 case 415:   // MediaPlay
-		    player.play();
-		    break;
+                    player.play();
+                    player.getTracks();
+		            break;
                 case 19:    // MediaPause
                     player.pause();
                     break;
@@ -190,7 +191,7 @@
          * @property {HTLM Div Element} info         - place to display stream info
          */
         var config = {
-            url: 'http://playready.directtaps.net/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/Manifest',
+            url: 'http://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd',
             player: document.getElementById('av-player'),
             controls: document.querySelector('.video-controls'),
             info: document.getElementById('info'),
