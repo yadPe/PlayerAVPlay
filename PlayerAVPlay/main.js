@@ -38,7 +38,9 @@
             '0',
             '1',
             '2',
-            '3'
+            '3',
+            '4',
+            '5'
         ];
 
         usedKeys.forEach(
@@ -85,6 +87,12 @@
                     break;
                 case 51: //Key 3
                     player.getProperties();
+                    break;
+                case 52: //Key 4
+                    player.getStreamInfo();
+                    break;
+                case 53: //Key 5
+                    player.toggleSubtilte();
                     break;
                 case 10009: // Return
                     if (webapis.avplay.getState() !== 'IDLE' && webapis.avplay.getState() !== 'NONE') {
@@ -191,7 +199,7 @@
          * @property {HTLM Div Element} info         - place to display stream info
          */
         var config = {
-            url: 'http://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd',
+            url: 'https://demo.unified-streaming.com/video/tears-of-steel/tears-of-steel-en.ism/.mpd',
             player: document.getElementById('av-player'),
             controls: document.querySelector('.video-controls'),
             info: document.getElementById('info'),

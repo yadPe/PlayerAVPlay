@@ -23,6 +23,8 @@ function VideoPlayer(config) {
      */
     var isFullscreen = false;
 
+    var isSubtitleEnabled = true;
+
     /**
      * HTML element o display stream properties.
      */
@@ -73,6 +75,10 @@ function VideoPlayer(config) {
                 }.bind(this),
                 onerror: function (eventType) {
                     log("event type error : " + eventType);
+                },
+                onsubtitlechange: function(duration, text, data3, data4) {
+                    log("Subtitle Changed:");
+                    log(text);
                 }
             };
 
@@ -200,6 +206,26 @@ function VideoPlayer(config) {
                 text += 'extra_info: ' + trackInfo[i].extra_info + '<br />';
             }
             info.innerHTML = text;
+        },
+        getStreamInfo: function() {
+            var trackInfo = webapis.avplay.getCurrentStreamInfo();
+            var text = 'type of track info: ' + typeof trackInfo + '<br />';
+            text += 'length: ' + trackInfo.length + '<br />';
+            for (var i = 0; i < trackInfo.length; i++) {
+                text += 'index: ' + trackInfo[i].index + ' ';
+                text += 'type: ' + trackInfo[i].type + ' ';
+                text += 'extra_info: ' + trackInfo[i].extra_info + '<br />';
+            }
+            info.innerHTML = text;
+        },
+        toggleSubtilte: function() {
+            try {
+                isSubtitleEnabled = !isSubtitleEnabled
+                webapis.avplay.setSilentSubtitle(!isSubtitleEnabled);
+                log('setSilentSubtitle is ' + !isSubtitleEnabled);
+            } catch(e) {
+                log('Failed to setSilentSubtitle');
+            }
         },
         /**
          * Show streaming properties on the screen.
